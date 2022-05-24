@@ -1,1 +1,63 @@
+Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+There is only one repeated number in nums, return this repeated number.
+You must solve the problem without modifying the array nums and uses only constant extra space.
+
+
+Approach 1 : Using Sorting : TC = O(NlogN + N)  ,  SC = O(1)
+
+1. Initialise a variable .
+2. Sort the vector.
+3. Run a for loop till the size of vector
+4. Inside the for loop apply condition if first element gets equal to the second element then assign the value of the current vector to the variable
+   that has initilased and break the loop.
+5. Return the variable ....it will return the duplicate number.
+
+Solution - 
+
+class Solution{
+public:
+   int findDuplicate(vector<int> &nums){
+     int a=0;
+     sort(nums.begin() , nums.end() );
+     for(int i=0;i<nums.size();i++)
+     {
+       if(nums[i] == nums[i+1]){
+        a = nums[i];
+        break;
+        }
+     }
+       return a;
+     }
+   };
+   
+   
+   
+   Approach 2 : Optimised using fast and slow pointer
+   
+   1. Initialise 2 pointer one named slow and other fast.
+   2. Move slow pointer by one step and fast pointer by two steps inside do while loop with condition slow is not equal to fast.
+   3. Now when the cycle detects bring the fast pointer back to the 0th index .
+   4. Apply while loop where slow pointer not equals to fast by one step both
+   5. Return the slow pointer .. and that will be the duplicate number.
+   
+   Solution- TC = O(n) . SC = O(1)
+   
+   class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+        do{
+          slow = nums[slow];  
+          fast = nums[nums[fast]];
+          }while(slow!=fast);
+        
+        fast = nums[0];
+        while(slow != fast){
+        slow = nums[slow];
+        fast = nums[fast];
+        }
+        return slow;
+    }
+};
 
